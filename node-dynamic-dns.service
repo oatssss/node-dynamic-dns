@@ -1,3 +1,4 @@
+# Ensure /usr/local/src/node-dynamic-dns/node-dynamic-dns.js is the correct path for executable
 # Move to /etc/systemd/system/node-dynamic-dns.service
 # Run `systemd-analyze verify node-dynamic-dns` to check for errors in config
 # Run `systemctl enable node-dynamic-dns` to enable the service
@@ -12,7 +13,7 @@ Requires=network-online.target
 [Service]
 Restart=on-failure
 RestartSec=10s
-# Drop root proviliges and switch to main
+# Drop root privileges and switch to main
 User=main
 Group=main
 # Setup logging with journald
@@ -20,8 +21,8 @@ StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=node-dynamic-dns
 # Start the process
-ExecStartPre=/bin/echo "\n---------- `date` ----------\nLaunching node-dynamic-dns service."
-ExecStart=/usr/local/bin/node-dynamic-dns.js
+ExecStartPre=/bin/echo "Launching node-dynamic-dns service."
+ExecStart=/usr/local/src/node-dynamic-dns/node-dynamic-dns.js
 
 # Run on startup
 [Install]
