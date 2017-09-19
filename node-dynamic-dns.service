@@ -1,0 +1,21 @@
+[Unit]
+Description=Node app to keep this machine's external IP sync'd with DigitalOcean DNS
+
+# Automatically restart process if crashed
+[Service]
+Restart=on-failure
+RestartSec=10s
+# Drop root proviliges and switch to main
+User=main
+Group=main
+# Setup logging with journald
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node-dynamic-dns
+# Start the process
+ExecStartPre=/bin/echo "\n---------- `date` ----------\nLaunching node-dynamic-dns service."
+ExecStart=/usr/local/bin/node-dynamic-dns.js
+
+# Run on startup
+[Install]
+WantedBy=multi-user.target
