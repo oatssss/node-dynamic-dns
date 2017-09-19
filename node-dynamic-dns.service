@@ -1,3 +1,8 @@
+# Move to /etc/systemd/system/node-dynamic-dns.service
+# Run `systemd-analyze verify node-dynamic-dns` to check for errors in config
+# Run `systemctl enable node-dynamic-dns` to enable the service
+# Run `service node-dynamic-dns start` to start the service
+
 [Unit]
 Description=Node app to keep this machine's external IP sync'd with DigitalOcean DNS
 
