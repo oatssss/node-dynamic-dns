@@ -5,6 +5,8 @@
 
 [Unit]
 Description=Node app to keep this machine's external IP sync'd with DigitalOcean DNS
+After=network-online.target
+Requires=network-online.target
 
 # Automatically restart process if crashed
 [Service]
