@@ -2,6 +2,7 @@
 
 ### Setup (Linux)
 1. Clone into `/usr/local/src/node-dynamic-dns`
+	- If you change this, make sure you also change `ExecStart` in the `.service`
 2. `npm install`
 3. Change `apiToken`, `domain`, and `recordId` in `node-dynamic-dns.js` according to your DigitalOcean account
 
