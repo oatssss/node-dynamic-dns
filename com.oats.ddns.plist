@@ -8,5 +8,10 @@
         <string>/usr/local/src/node-dynamic-dns/node-dynamic-dns.js</string>
         <key>KeepAlive</key>
         <true/>
+        <key>StandardErrorPath</key>
+        <string>/usr/local/src/node-dynamic-dns/launchd-stderr.log</string>
+        <key>StandardOutPath</key>
+        <string>/usr/local/src/node-dynamic-dns/launchd-stdout.log</string>
     </dict>
 </plist>
+

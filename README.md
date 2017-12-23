@@ -32,5 +32,5 @@ You can use https://www.hurl.it/ to easily construct a `GET` request.
 ##### Setting up the service (macOS)
 
 4. Copy `com.oats.ddns.plist` to `/Library/LaunchDaemons`
-5. `sudo chown -R root /usr/local/src/node-dynamic-dns`
+5. ~~`sudo chown -R root /usr/local/src/node-dynamic-dns`~~
 6. `sudo launchctl load /Library/LaunchDaemons/com.oats.ddns.plist`

@@ -17,6 +17,19 @@ let lastUpdateError;
 let queryErrorCount = 0;
 let updateErrorCount = 0;
 
+function stampedOutput(tag) {
+  arguments = Array.prototype.slice.call(arguments[1]);
+  console.log(`${new Date()} - ${tag} - ${arguments.join(' ')}`);
+}
+
+function stampedLog() {
+  stampedOutput('DEBUG', arguments);
+}
+
+function stampedError() {
+  stampedOutput('ERROR', arguments);
+}
+
 function run() {
   if (mappedIP === currentIP) {
     request({
@@ -42,7 +55,7 @@ function run() {
     .catch(error => {
       if (lastQueryError !== error.message) {
         lastQueryError = error.message;
-        console.error(`Query Error ${queryErrorCount++}:`, error);
+        stampedError(`Query Error ${queryErrorCount++}:`, error);
       }
       // Continue infinite loop
       setTimeout(run, requestErroredInterval);
@@ -50,8 +63,8 @@ function run() {
   }
 
   else {
-    console.log('Record:', mappedIP, '|', 'Current:', currentIP);
-    console.log('Updating DigitalOcean...');
+    stampedLog('Record:', mappedIP, '|', 'Current:', currentIP);
+    stampedLog('Updating DigitalOcean...');
     request({
       method: 'PUT',
       uri: `https://api.digitalocean.com/v2/domains/${domain}/records/${recordId}`,
@@ -64,7 +77,7 @@ function run() {
       json: true
     })
     .then(() => {
-      console.log('Updated DigitalOcean record from', mappedIP, 'to', currentIP);
+      stampedLog('Updated DigitalOcean record from', mappedIP, 'to', currentIP);
       mappedIP = currentIP;
       lastUpdateError = undefined;
       // Continue infinite loop
@@ -75,13 +88,15 @@ function run() {
       currentIP = undefined;
       if (lastUpdateError !== error.message) {
         lastUpdateError = error.message;
-        console.error(`Update Error ${updateErrorCount++}:`, error);
+        stampedError(`Update Error ${updateErrorCount++}:`, error);
       }
       // Continue infinite loop
       setTimeout(run, requestErroredInterval);
     });
   }
 }
+
+stampedLog( 'node-dynamic-dns service is watching for IP changes...');
 
 // Begin the infinite loop
 run();
